@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XCashShop Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="mb-4">XCashShop Manager</h1>
+        <button class="btn btn-primary" onclick="selectGame()">Select Game</button>
+    </div>
+
+    <script>
+        async function selectGame() {
+            const { value: gameName } = await Swal.fire({
+                title: 'Enter Game Name',
+                input: 'text',
+                inputPlaceholder: 'Enter the game name'
+            });
+
+            if (gameName) {
+                window.location.href = `/game/${gameName}`;
+            }
+        }
+    </script>
+</body>
+</html>
