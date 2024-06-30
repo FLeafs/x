@@ -9,4 +9,4 @@
 
 # Tutorial
 - Website : http://127.0.0.1:8080/
-- Video : 
+- Video : https://youtu.be/7YGstIc-UZw
