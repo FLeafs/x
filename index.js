@@ -61,7 +61,7 @@ class XCashShop {
                                             headers: Headers(true),
                                             body: JSON.stringify(payload)
                                         };
-                                        function mengOrder(retries = 5) {
+                                        const mengOrder = (retries = 5) => {
                                             fetch(url, options).then(res => res.json()).then(res => {
                                                 if (res.data) {
                                                     this.db[gameName].order[order.uuid].link.push(`https://xcashshop.com/history/${order.account.phoneNumber}/${res.data}`);
@@ -74,6 +74,7 @@ class XCashShop {
 						}
 					    });
 					}
+					mengOrder();
                                     }
                                 }
                             }
