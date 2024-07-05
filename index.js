@@ -1,3 +1,6 @@
+process.on("unhandledRejection", console.error);
+process.on("uncaughtException", console.error);
+
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -58,11 +61,19 @@ class XCashShop {
                                             headers: Headers(true),
                                             body: JSON.stringify(payload)
                                         };
-                                        fetch(url, options).then(res => res.json()).then(res => {
-                                            if (res.data) {
-                                                this.db[gameName].order[order.uuid].link.push(`https://xcashshop.com/history/${order.account.phoneNumber}/${res.data}`);
-                                            }
-                                        });
+                                        function mengOrder(retries = 5) {
+                                            fetch(url, options).then(res => res.json()).then(res => {
+                                                if (res.data) {
+                                                    this.db[gameName].order[order.uuid].link.push(`https://xcashshop.com/history/${order.account.phoneNumber}/${res.data}`);
+                                                }
+                                            }).catch(e => {
+						console.log(e);
+					        if (retries > 0) {
+						    console.log(`Retrying... (${retries - 1} attempts left)`);
+						    mengOrder(retries - 1);
+						}
+					    });
+					}
                                     }
                                 }
                             }
